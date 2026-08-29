@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 session_start();
 include "../includes/db.php";
@@ -14,42 +12,39 @@ $sql = "SELECT events.*, categories.category_name
         FROM events
         LEFT JOIN categories
         ON events.category_id = categories.id";
+
 $result = $conn->query($sql);
 
-if (!$result) {
-    die("Query error: " . $conn->error);
-}
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Manage Events</title>
 </head>
 
 <body>
 
-    <h1>Manage Events</h1>
+<h1>Manage Events</h1>
 
-    <a href="add_event.php">Add New Event</a>
+<a href="add_event.php">Add New Event</a>
 
-    <br><br>
+<br><br>
 
-    <table border="1" cellpadding="10">
+<table border="1" cellpadding="10">
 
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Location</th>
-            <th>Actions</th>
-        </tr>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Location</th>
+        <th>Actions</th>
+    </tr>
 
-        <?php
-        while ($row = $result->fetch_assoc()) {
-        ?>
+    <?php while ($row = $result->fetch_assoc()) { ?>
 
         <tr>
             <td><?php echo $row["id"]; ?></td>
@@ -66,15 +61,14 @@ if (!$result) {
             </td>
         </tr>
 
-        <?php
-        }
-        ?>
+    <?php } ?>
 
-    </table>
+</table>
 
-    <br>
+<br>
 
-    <a href="dashboard.php">Back to Dashboard</a>
+<a href="dashboard.php">Back to Dashboard</a>
 
 </body>
+
 </html>
