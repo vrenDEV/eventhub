@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 session_start();
 include "../includes/db.php";
@@ -10,9 +8,9 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["role"] != "admin") {
     exit();
 }
 
-$categoryResult = $conn->query("SELECT * FROM categories");
-
 $message = "";
+
+$categoryResult = $conn->query("SELECT * FROM categories");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -24,16 +22,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $location = $_POST["location"];
 
     $sql = "INSERT INTO events
-            (title, description, event_date, event_time, location, category_id)
+            (title, description, category_id, event_date, event_time, location)
             VALUES
-            ('$title', '$description', '$event_date', '$event_time', '$location', '$category_id')";
+            ('$title', '$description', '$category_id', '$event_date', '$event_time', '$location')";
 
     if ($conn->query($sql) === TRUE) {
-        $message = "Event added successfully!";
+        $message = "Event added successfully";
     } else {
-        $message = "Error: " . $conn->error;
+        $message = "Event could not be added";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -45,62 +44,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-    <h1>Add New Event</h1>
+<h1>Add New Event</h1>
 
-    <p><?php echo $message; ?></p>
+<p><?php echo $message; ?></p>
 
-    <form method="POST">
+<form method="POST" action="">
 
-        <label>Event Title:</label><br>
-        <input type="text" name="title" required>
+    <label>Event Title:</label><br>
+    <input type="text" name="title" required>
 
-        <br><br>
+    <br><br>
 
-        <label>Description:</label><br>
-        <textarea name="description" required></textarea>
+    <label>Description:</label><br>
+    <textarea name="description" required></textarea>
 
-        <br><br>
+    <br><br>
 
-        <label>Category:</label><br>
+    <label>Category:</label><br>
 
-        <select name="category_id" required>
+    <select name="category_id" required>
 
-            <option value="">Select Category</option>
+        <option value="">Select Category</option>
 
-            <?php while ($category = $categoryResult->fetch_assoc()) { ?>
+        <?php while ($category = $categoryResult->fetch_assoc()) { ?>
 
-                <option value="<?php echo $category["id"]; ?>">
-                    <?php echo $category["category_name"]; ?>
-                </option>
+            <option value="<?php echo $category["id"]; ?>">
+                <?php echo $category["category_name"]; ?>
+            </option>
 
-            <?php } ?>
+        <?php } ?>
 
-        </select>
+    </select>
 
-        <br><br>
+    <br><br>
 
-        <label>Event Date:</label><br>
-        <input type="date" name="event_date" required>
+    <label>Event Date:</label><br>
+    <input type="date" name="event_date" required>
 
-        <br><br>
+    <br><br>
 
-        <label>Event Time:</label><br>
-        <input type="time" name="event_time" required>
+    <label>Event Time:</label><br>
+    <input type="time" name="event_time" required>
 
-        <br><br>
+    <br><br>
 
-        <label>Location:</label><br>
-        <input type="text" name="location" required>
+    <label>Location:</label><br>
+    <input type="text" name="location" required>
 
-        <br><br>
+    <br><br>
 
-        <button type="submit">Add Event</button>
+    <input type="submit" value="Add Event">
 
-    </form>
+</form>
 
-    <br>
+<br>
 
-    <a href="events.php">Back to Events</a>
+<a href="events.php">Back to Events</a>
 
 </body>
 

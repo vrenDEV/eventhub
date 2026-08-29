@@ -1,30 +1,20 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 session_start();
 include "../includes/db.php";
-$categoryResult = $conn->query("SELECT * FROM categories");
 
 if (!isset($_SESSION["user_id"]) || $_SESSION["role"] != "admin") {
     header("Location: ../login.php");
     exit();
 }
 
-if (!isset($_GET["id"])) {
-    die("Event ID not found.");
-}
-
 $id = $_GET["id"];
 
 $sql = "SELECT * FROM events WHERE id='$id'";
 $result = $conn->query($sql);
-
-if ($result->num_rows != 1) {
-    die("Event not found.");
-}
-
 $event = $result->fetch_assoc();
+
+$categoryResult = $conn->query("SELECT * FROM categories");
 
 $message = "";
 
@@ -36,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $event_date = $_POST["event_date"];
     $event_time = $_POST["event_time"];
     $location = $_POST["location"];
-    
 
     $sql = "UPDATE events SET
             title='$title',
@@ -48,16 +37,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             WHERE id='$id'";
 
     if ($conn->query($sql) === TRUE) {
-        $message = "Event updated successfully!";
+        $message = "Event updated successfully";
 
         $sql = "SELECT * FROM events WHERE id='$id'";
         $result = $conn->query($sql);
         $event = $result->fetch_assoc();
 
     } else {
-        $message = "Error: " . $conn->error;
+        $message = "Event could not be updated";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -69,90 +59,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-    <h1>Edit Event</h1>
+<h1>Edit Event</h1>
 
-    <p><?php echo $message; ?></p>
+<p><?php echo $message; ?></p>
 
-    <form method="POST">
+<form method="POST" action="">
 
-        <label>Event Title:</label><br>
-        <input
-            type="text"
-            name="title"
-            value="<?php echo $event["title"]; ?>"
-            required
-        >
+    <label>Event Title:</label><br>
+    <input type="text" name="title" value="<?php echo $event["title"]; ?>" required>
 
-        <br><br>
+    <br><br>
 
-        <label>Description:</label><br>
+    <label>Description:</label><br>
+    <textarea name="description" required><?php echo $event["description"]; ?></textarea>
 
-        <textarea
-            name="description"
-            required
-        ><?php echo $event["description"]; ?></textarea>
+    <br><br>
 
-        <br><br>
+    <label>Category:</label><br>
 
-        <label>Category:</label><br>
-
-        <select name="category_id" required>
+    <select name="category_id" required>
 
         <?php while ($category = $categoryResult->fetch_assoc()) { ?>
 
-        <option value="<?php echo $category["id"]; ?>"
-            <?php if ($category["id"] == $event["category_id"]) echo "selected"; ?>>
+            <option value="<?php echo $category["id"]; ?>"
+                <?php if ($category["id"] == $event["category_id"]) echo "selected"; ?>>
 
-            <?php echo $category["category_name"]; ?>
+                <?php echo $category["category_name"]; ?>
 
-        </option>
+            </option>
 
-         <?php } ?>
+        <?php } ?>
 
-        </select>
+    </select>
 
-        <br><br>
+    <br><br>
 
-        <label>Event Date:</label><br>
+    <label>Event Date:</label><br>
+    <input type="date" name="event_date" value="<?php echo $event["event_date"]; ?>" required>
 
-        <input
-            type="date"
-            name="event_date"
-            value="<?php echo $event["event_date"]; ?>"
-            required
-        >
+    <br><br>
 
-        <br><br>
+    <label>Event Time:</label><br>
+    <input type="time" name="event_time" value="<?php echo $event["event_time"]; ?>" required>
 
-        <label>Event Time:</label><br>
+    <br><br>
 
-        <input
-            type="time"
-            name="event_time"
-            value="<?php echo $event["event_time"]; ?>"
-            required
-        >
+    <label>Location:</label><br>
+    <input type="text" name="location" value="<?php echo $event["location"]; ?>" required>
 
-        <br><br>
+    <br><br>
 
-        <label>Location:</label><br>
+    <input type="submit" value="Update Event">
 
-        <input
-            type="text"
-            name="location"
-            value="<?php echo $event["location"]; ?>"
-            required
-        >
+</form>
 
-        <br><br>
+<br>
 
-        <button type="submit">Update Event</button>
-
-    </form>
-
-    <br>
-
-    <a href="events.php">Back to Events</a>
+<a href="events.php">Back to Events</a>
 
 </body>
 
