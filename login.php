@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include "includes/db.php";
 
@@ -31,40 +32,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
 
         } else {
-            $message = "Incorrect password.";
+            $message = "Incorrect password";
         }
 
     } else {
-        $message = "User not found.";
+        $message = "User not found";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>EventHub Login</title>
+    <title>Login</title>
 </head>
 
 <body>
 
-    <h2>Login</h2>
+<h1>Login</h1>
 
-    <p><?php echo $message; ?></p>
+<p><?php echo $message; ?></p>
 
-    <form method="POST" action="">
+<form method="POST" action="">
 
-        <label>Email:</label><br>
-        <input type="email" name="email" required>
-        <br><br>
+    <label>Email:</label><br>
+    <input type="email" name="email" required>
 
-        <label>Password:</label><br>
-        <input type="password" name="password" required>
-        <br><br>
+    <br><br>
 
-        <button type="submit">Login</button>
+    <label>Password:</label><br>
+    <input type="password" name="password" required>
 
-    </form>
+    <br><br>
+
+    <input type="submit" value="Login">
+
+</form>
+
+<br>
+
+<a href="register.php">Create Account</a>
 
 </body>
+
 </html>

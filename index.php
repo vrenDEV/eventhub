@@ -1,9 +1,15 @@
 <?php
+
 session_start();
 include "includes/db.php";
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
+    exit();
+}
+
+if ($_SESSION["role"] == "admin") {
+    header("Location: admin/dashboard.php");
     exit();
 }
 
@@ -13,14 +19,13 @@ if (isset($_GET["category"])) {
     $category = $_GET["category"];
 }
 
-if ($category != "") {
+if ($category == "") {
 
     $sql = "SELECT events.*, categories.category_name
             FROM events
             LEFT JOIN categories
             ON events.category_id = categories.id
             WHERE event_date >= CURDATE()
-            AND categories.id = '$category'
             ORDER BY event_date ASC";
 
 } else {
@@ -30,12 +35,14 @@ if ($category != "") {
             LEFT JOIN categories
             ON events.category_id = categories.id
             WHERE event_date >= CURDATE()
+            AND category_id='$category'
             ORDER BY event_date ASC";
 }
 
 $result = $conn->query($sql);
 
 $categoryResult = $conn->query("SELECT * FROM categories");
+
 ?>
 
 <!DOCTYPE html>
@@ -47,57 +54,54 @@ $categoryResult = $conn->query("SELECT * FROM categories");
 
 <body>
 
-    <h1>NSBM EventHub</h1>
+<h1>NSBM EventHub</h1>
 
-    <h3>Welcome, <?php echo $_SESSION["name"]; ?></h3>
+<h3>Welcome <?php echo $_SESSION["name"]; ?></h3>
 
-    <a href="logout.php">Logout</a>
+<a href="logout.php">Logout</a>
 
-    <hr>
+<hr>
 
-    <h2>Search Events</h2>
+<h2>Search Events</h2>
 
-    <form method="GET">
+<form method="GET" action="">
 
-        <label>Search by Category:</label>
+    <label>Category:</label>
 
-        <select name="category">
+    <select name="category">
 
-            <option value="">All Categories</option>
+        <option value="">All Categories</option>
 
-            <?php while ($cat = $categoryResult->fetch_assoc()) { ?>
+        <?php while ($cat = $categoryResult->fetch_assoc()) { ?>
 
-                <option value="<?php echo $cat["id"]; ?>"
-                    <?php if ($category == $cat["id"]) echo "selected"; ?>>
+            <option value="<?php echo $cat["id"]; ?>">
+                <?php echo $cat["category_name"]; ?>
+            </option>
 
-                    <?php echo $cat["category_name"]; ?>
+        <?php } ?>
 
-                </option>
+    </select>
 
-            <?php } ?>
+    <input type="submit" value="Search">
 
-        </select>
+</form>
 
-        <button type="submit">Search</button>
+<br>
 
-    </form>
+<h2>Upcoming Events</h2>
 
-    <br>
+<table border="1" cellpadding="10">
 
-    <h2>Upcoming Events</h2>
+    <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Location</th>
+    </tr>
 
-    <table border="1" cellpadding="10">
-
-        <tr>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Location</th>
-        </tr>
-
-        <?php while ($row = $result->fetch_assoc()) { ?>
+    <?php while ($row = $result->fetch_assoc()) { ?>
 
         <tr>
             <td><?php echo $row["title"]; ?></td>
@@ -108,9 +112,9 @@ $categoryResult = $conn->query("SELECT * FROM categories");
             <td><?php echo $row["location"]; ?></td>
         </tr>
 
-        <?php } ?>
+    <?php } ?>
 
-    </table>
+</table>
 
 </body>
 
