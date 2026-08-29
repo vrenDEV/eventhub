@@ -1,4 +1,5 @@
 <?php
+
 include "includes/db.php";
 
 $message = "";
@@ -9,48 +10,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $password = password_hash($password, PASSWORD_DEFAULT);
 
     $sql = "INSERT INTO users (name, email, password, role)
-            VALUES ('$name', '$email', '$hashedPassword', 'student')";
+            VALUES ('$name', '$email', '$password', 'student')";
 
     if ($conn->query($sql) === TRUE) {
-        $message = "Registration successful!";
+        $message = "Registration successful";
     } else {
-        $message = "Error: " . $conn->error;
+        $message = "Registration failed";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>EventHub Register</title>
+    <title>Register</title>
 </head>
 
 <body>
 
-    <h2>Student Registration</h2>
+<h1>Student Registration</h1>
 
-    <p><?php echo $message; ?></p>
+<p><?php echo $message; ?></p>
 
-    <form method="POST" action="">
+<form method="POST" action="">
 
-        <label>Name:</label><br>
-        <input type="text" name="name" required>
-        <br><br>
+    <label>Name:</label><br>
+    <input type="text" name="name" required>
 
-        <label>Email:</label><br>
-        <input type="email" name="email" required>
-        <br><br>
+    <br><br>
 
-        <label>Password:</label><br>
-        <input type="password" name="password" required>
-        <br><br>
+    <label>Email:</label><br>
+    <input type="email" name="email" required>
 
-        <button type="submit">Register</button>
+    <br><br>
 
-    </form>
+    <label>Password:</label><br>
+    <input type="password" name="password" required>
+
+    <br><br>
+
+    <input type="submit" value="Register">
+
+</form>
+
+<br>
+
+<a href="login.php">Login</a>
 
 </body>
+
 </html>
