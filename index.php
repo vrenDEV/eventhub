@@ -42,6 +42,7 @@ if ($category == "") {
 $result = $conn->query($sql);
 
 $categoryResult = $conn->query("SELECT * FROM categories");
+$announcementResult = $conn->query("SELECT * FROM announcements ORDER BY created_at DESC");
 
 ?>
 
@@ -58,6 +59,7 @@ $categoryResult = $conn->query("SELECT * FROM categories");
 
 <h3>Welcome <?php echo $_SESSION["name"]; ?></h3>
 
+<a href="my_schedule.php">My Event Schedule</a>
 <a href="logout.php">Logout</a>
 
 <hr>
@@ -88,6 +90,30 @@ $categoryResult = $conn->query("SELECT * FROM categories");
 
 <br>
 
+<h2>Announcements</h2>
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>Title</th>
+        <th>Message</th>
+        <th>Date</th>
+    </tr>
+
+    <?php while ($announcement = $announcementResult->fetch_assoc()) { ?>
+
+        <tr>
+            <td><?php echo $announcement["title"]; ?></td>
+            <td><?php echo $announcement["message"]; ?></td>
+            <td><?php echo $announcement["created_at"]; ?></td>
+        </tr>
+
+    <?php } ?>
+
+</table>
+
+<br>
+
 <h2>Upcoming Events</h2>
 
 <table border="1" cellpadding="10">
@@ -99,6 +125,7 @@ $categoryResult = $conn->query("SELECT * FROM categories");
         <th>Date</th>
         <th>Time</th>
         <th>Location</th>
+        <th>Action</th>
     </tr>
 
     <?php while ($row = $result->fetch_assoc()) { ?>
@@ -110,6 +137,10 @@ $categoryResult = $conn->query("SELECT * FROM categories");
             <td><?php echo $row["event_date"]; ?></td>
             <td><?php echo $row["event_time"]; ?></td>
             <td><?php echo $row["location"]; ?></td>
+
+            <td>
+                <a href="register_event.php?id=<?php echo $row["id"]; ?>">Register</a>
+            </td>
         </tr>
 
     <?php } ?>
