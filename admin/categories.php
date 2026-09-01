@@ -59,6 +59,7 @@ $result = $conn->query("SELECT * FROM categories");
     <tr>
         <th>ID</th>
         <th>Category Name</th>
+        <th>Action</th>
     </tr>
 
     <?php while ($row = $result->fetch_assoc()) { ?>
@@ -66,6 +67,9 @@ $result = $conn->query("SELECT * FROM categories");
         <tr>
             <td><?php echo $row["id"]; ?></td>
             <td><?php echo $row["category_name"]; ?></td>
+             <td>
+        <a href="delete_category.php?id=<?php echo $row["id"]; ?>">Delete</a>
+    </td>
         </tr>
 
     <?php } ?>

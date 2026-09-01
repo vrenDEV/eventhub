@@ -43,6 +43,7 @@ $result = $conn->query($sql);
         <th>Email</th>
         <th>Event</th>
         <th>Registered At</th>
+        <th>Action</th>
     </tr>
 
     <?php while ($row = $result->fetch_assoc()) { ?>
@@ -53,6 +54,9 @@ $result = $conn->query($sql);
             <td><?php echo $row["email"]; ?></td>
             <td><?php echo $row["title"]; ?></td>
             <td><?php echo $row["registered_at"]; ?></td>
+            <td>
+                <a href="delete_registration.php?id=<?php echo $row["id"]; ?>">Delete</a>
+            </td>
         </tr>
 
     <?php } ?>
