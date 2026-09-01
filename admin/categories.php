@@ -32,7 +32,23 @@ $result = $conn->query("SELECT * FROM categories");
 <html>
 
 <head>
+
     <title>Manage Categories</title>
+
+    <script>
+
+    function validateForm() {
+
+        if (document.form1.category_name.value.length == 0) {
+            window.alert("Please enter a category name");
+            return false;
+        }
+
+        return true;
+    }
+
+    </script>
+
 </head>
 
 <body>
@@ -41,10 +57,10 @@ $result = $conn->query("SELECT * FROM categories");
 
 <p><?php echo $message; ?></p>
 
-<form method="POST" action="">
+<form name="form1" method="POST" action="" onsubmit="return validateForm()">
 
     <label>Category Name:</label><br>
-    <input type="text" name="category_name" required>
+    <input type="text" name="category_name">
 
     <br><br>
 
@@ -67,9 +83,9 @@ $result = $conn->query("SELECT * FROM categories");
         <tr>
             <td><?php echo $row["id"]; ?></td>
             <td><?php echo $row["category_name"]; ?></td>
-             <td>
-        <a href="delete_category.php?id=<?php echo $row["id"]; ?>">Delete</a>
-    </td>
+            <td>
+                <a href="delete_category.php?id=<?php echo $row["id"]; ?>">Delete</a>
+            </td>
         </tr>
 
     <?php } ?>

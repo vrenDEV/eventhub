@@ -33,7 +33,28 @@ $result = $conn->query("SELECT * FROM announcements ORDER BY created_at DESC");
 <html>
 
 <head>
+
     <title>Manage Announcements</title>
+
+    <script>
+
+    function validateForm() {
+
+        if (document.form1.title.value.length == 0) {
+            window.alert("Please enter the announcement title");
+            return false;
+        }
+
+        if (document.form1.message.value.length == 0) {
+            window.alert("Please enter the announcement message");
+            return false;
+        }
+
+        return true;
+    }
+
+    </script>
+
 </head>
 
 <body>
@@ -42,15 +63,15 @@ $result = $conn->query("SELECT * FROM announcements ORDER BY created_at DESC");
 
 <p><?php echo $message; ?></p>
 
-<form method="POST" action="">
+<form name="form1" method="POST" action="" onsubmit="return validateForm()">
 
     <label>Title:</label><br>
-    <input type="text" name="title" required>
+    <input type="text" name="title">
 
     <br><br>
 
     <label>Message:</label><br>
-    <textarea name="message" required></textarea>
+    <textarea name="message"></textarea>
 
     <br><br>
 
@@ -77,8 +98,10 @@ $result = $conn->query("SELECT * FROM announcements ORDER BY created_at DESC");
             <td><?php echo $row["title"]; ?></td>
             <td><?php echo $row["message"]; ?></td>
             <td><?php echo $row["created_at"]; ?></td>
+
             <td>
                 <a href="edit_announcement.php?id=<?php echo $row["id"]; ?>">Edit</a>
+                |
                 <a href="delete_announcement.php?id=<?php echo $row["id"]; ?>">Delete</a>
             </td>
         </tr>
