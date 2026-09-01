@@ -32,6 +32,8 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["role"] != "admin") {
 
     <li><a href="announcements.php">Manage Announcements</a></li>
 
+    <li><a href="participant_list.php">Participant List</a></li>
+
 </ul>
 
 <a href="../logout.php">Logout</a>
