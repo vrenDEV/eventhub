@@ -67,6 +67,7 @@ $result = $conn->query("SELECT * FROM announcements ORDER BY created_at DESC");
         <th>Title</th>
         <th>Message</th>
         <th>Date</th>
+        <th>Action</th>
     </tr>
 
     <?php while ($row = $result->fetch_assoc()) { ?>
@@ -77,6 +78,7 @@ $result = $conn->query("SELECT * FROM announcements ORDER BY created_at DESC");
             <td><?php echo $row["message"]; ?></td>
             <td><?php echo $row["created_at"]; ?></td>
             <td>
+                <a href="edit_announcement.php?id=<?php echo $row["id"]; ?>">Edit</a>
                 <a href="delete_announcement.php?id=<?php echo $row["id"]; ?>">Delete</a>
             </td>
         </tr>

@@ -28,7 +28,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
 <head>
+
     <title>Register</title>
+
+    <script>
+
+    function validateForm() {
+
+        if (document.form1.name.value.length == 0) {
+            window.alert("Please enter your name");
+            return false;
+        }
+
+        if (document.form1.email.value.length == 0) {
+            window.alert("Please enter your email");
+            return false;
+        }
+
+        if (document.form1.password.value.length < 6) {
+            window.alert("Password should be at least 6 characters");
+            return false;
+        }
+
+        return true;
+    }
+
+    </script>
+
 </head>
 
 <body>
@@ -37,20 +63,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <p><?php echo $message; ?></p>
 
-<form method="POST" action="">
+<form name="form1" method="POST" action="" onsubmit="return validateForm()">
 
     <label>Name:</label><br>
-    <input type="text" name="name" required>
+    <input type="text" name="name">
 
     <br><br>
 
     <label>Email:</label><br>
-    <input type="email" name="email" required>
+    <input type="email" name="email">
 
     <br><br>
 
     <label>Password:</label><br>
-    <input type="password" name="password" required>
+    <input type="password" name="password">
 
     <br><br>
 

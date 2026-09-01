@@ -39,7 +39,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
 <head>
+
     <title>Add Event</title>
+
+    <script>
+
+    function validateForm() {
+
+        if (document.form1.title.value.length == 0) {
+            window.alert("Please enter the event title");
+            return false;
+        }
+
+        if (document.form1.description.value.length == 0) {
+            window.alert("Please enter the event description");
+            return false;
+        }
+
+        if (document.form1.category_id.selectedIndex == 0) {
+            window.alert("Please select a category");
+            return false;
+        }
+
+        if (document.form1.event_date.value.length == 0) {
+            window.alert("Please select the event date");
+            return false;
+        }
+
+        if (document.form1.event_time.value.length == 0) {
+            window.alert("Please select the event time");
+            return false;
+        }
+
+        if (document.form1.location.value.length == 0) {
+            window.alert("Please enter the event location");
+            return false;
+        }
+
+        return true;
+    }
+
+    </script>
+
 </head>
 
 <body>
@@ -48,21 +89,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <p><?php echo $message; ?></p>
 
-<form method="POST" action="">
+<form name="form1" method="POST" action="" onsubmit="return validateForm()">
 
     <label>Event Title:</label><br>
-    <input type="text" name="title" required>
+    <input type="text" name="title">
 
     <br><br>
 
     <label>Description:</label><br>
-    <textarea name="description" required></textarea>
+    <textarea name="description"></textarea>
 
     <br><br>
 
     <label>Category:</label><br>
 
-    <select name="category_id" required>
+    <select name="category_id">
 
         <option value="">Select Category</option>
 
@@ -79,17 +120,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <br><br>
 
     <label>Event Date:</label><br>
-    <input type="date" name="event_date" required>
+    <input type="date" name="event_date">
 
     <br><br>
 
     <label>Event Time:</label><br>
-    <input type="time" name="event_time" required>
+    <input type="time" name="event_time">
 
     <br><br>
 
     <label>Location:</label><br>
-    <input type="text" name="location" required>
+    <input type="text" name="location">
 
     <br><br>
 
