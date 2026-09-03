@@ -29,46 +29,120 @@ $result = $conn->query($sql);
 <html>
 
 <head>
-    <title>My Event Schedule</title>
+
+    <title>My Schedule - NSBM EventHub</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
 
-<h1>My Event Schedule</h1>
+<div class="navbar">
 
-<table border="1" cellpadding="10">
+    <div class="logo">
+        NSBM <span>EventHub</span>
+    </div>
 
-    <tr>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Location</th>
-        <th>Action</th>
-    </tr>
+    <div class="nav-links">
 
-    <?php while ($row = $result->fetch_assoc()) { ?>
+        <a href="index.php">Home</a>
+
+        <a href="index.php#events">Events</a>
+
+        <a href="index.php#announcements">Announcements</a>
+
+        <a href="my_schedule.php">My Schedule</a>
+
+        <a href="logout.php">Logout</a>
+
+    </div>
+
+</div>
+
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>My Event <span class="green-text">Schedule</span></h2>
+
+    </div>
+
+    <p>
+        Welcome <?php echo $_SESSION["name"]; ?>. These are the events you have registered for.
+    </p>
+
+    <br>
+
+    <table>
 
         <tr>
-            <td><?php echo $row["title"]; ?></td>
-            <td><?php echo $row["category_name"]; ?></td>
-            <td><?php echo $row["event_date"]; ?></td>
-            <td><?php echo $row["event_time"]; ?></td>
-            <td><?php echo $row["location"]; ?></td>
-            <td>
-                <a href="cancel_registration.php?id=<?php echo $row["registration_id"]; ?>">
-                    Cancel
-                </a>
-            </td>
+
+            <th>Event</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Action</th>
+
         </tr>
 
-    <?php } ?>
+        <?php while ($row = $result->fetch_assoc()) { ?>
 
-</table>
+            <tr>
 
-<br>
+                <td>
+                    <?php echo $row["title"]; ?>
+                </td>
 
-<a href="index.php">Back to Events</a>
+                <td>
+                    <?php echo $row["category_name"]; ?>
+                </td>
+
+                <td>
+                    <?php echo $row["event_date"]; ?>
+                </td>
+
+                <td>
+                    <?php echo $row["event_time"]; ?>
+                </td>
+
+                <td>
+                    <?php echo $row["location"]; ?>
+                </td>
+
+                <td>
+
+                    <a
+                        class="cancel-btn"
+                        href="cancel_registration.php?id=<?php echo $row["registration_id"]; ?>"
+                    >
+                        Cancel Registration
+                    </a>
+
+                </td>
+
+            </tr>
+
+        <?php } ?>
+
+    </table>
+
+    <br><br>
+
+    <a href="index.php" class="btn">
+        Back to Events
+    </a>
+
+</section>
+
+
+<div class="footer">
+
+    © 2026 NSBM EventHub
+
+</div>
 
 </body>
 

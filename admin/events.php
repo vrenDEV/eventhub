@@ -21,53 +21,131 @@ $result = $conn->query($sql);
 <html>
 
 <head>
-    <title>Manage Events</title>
+
+    <title>Manage Events - NSBM EventHub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
 </head>
 
 <body>
 
-<h1>Manage Events</h1>
+<div class="admin-layout">
 
-<a href="add_event.php">Add New Event</a>
+    <div class="sidebar">
 
-<br><br>
+        <h2>NSBM EventHub</h2>
 
-<table border="1" cellpadding="10">
+        <p>Admin Panel</p>
 
-    <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Location</th>
-        <th>Actions</th>
-    </tr>
+        <br>
 
-    <?php while ($row = $result->fetch_assoc()) { ?>
+        <a href="dashboard.php">Dashboard</a>
 
-        <tr>
-            <td><?php echo $row["id"]; ?></td>
-            <td><?php echo $row["title"]; ?></td>
-            <td><?php echo $row["category_name"]; ?></td>
-            <td><?php echo $row["event_date"]; ?></td>
-            <td><?php echo $row["event_time"]; ?></td>
-            <td><?php echo $row["location"]; ?></td>
+        <a href="events.php">Manage Events</a>
 
-            <td>
-                <a href="edit_event.php?id=<?php echo $row["id"]; ?>">Edit</a>
-                |
-                <a href="delete_event.php?id=<?php echo $row["id"]; ?>">Delete</a>
-            </td>
-        </tr>
+        <a href="categories.php">Manage Categories</a>
 
-    <?php } ?>
+        <a href="registrations.php">View Registrations</a>
 
-</table>
+        <a href="participant_list.php">Participant List</a>
 
-<br>
+        <a href="announcements.php">Announcements</a>
 
-<a href="dashboard.php">Back to Dashboard</a>
+        <a href="../logout.php">Logout</a>
+
+    </div>
+
+
+    <div class="admin-content">
+
+        <div class="section-title">
+
+            <h1>Manage Events</h1>
+
+            <a href="add_event.php" class="btn">
+                Add New Event
+            </a>
+
+        </div>
+
+        <br>
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Title</th>
+
+                <th>Category</th>
+
+                <th>Date</th>
+
+                <th>Time</th>
+
+                <th>Location</th>
+
+                <th>Action</th>
+
+            </tr>
+
+            <?php while ($row = $result->fetch_assoc()) { ?>
+
+                <tr>
+
+                    <td>
+                        <?php echo $row["id"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["title"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["category_name"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["event_date"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["event_time"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["location"]; ?>
+                    </td>
+
+                    <td>
+
+                        <a
+                            class="edit-btn"
+                            href="edit_event.php?id=<?php echo $row["id"]; ?>"
+                        >
+                            Edit
+                        </a>
+
+                        <a
+                            class="delete-btn"
+                            href="delete_event.php?id=<?php echo $row["id"]; ?>"
+                        >
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            <?php } ?>
+
+        </table>
+
+    </div>
+
+</div>
 
 </body>
 

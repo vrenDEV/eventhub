@@ -13,30 +13,133 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["role"] != "admin") {
 <html>
 
 <head>
-    <title>Admin Dashboard</title>
+
+    <title>Admin Dashboard - NSBM EventHub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
 </head>
 
 <body>
 
-<h1>Admin Dashboard</h1>
+<div class="admin-layout">
 
-<h3>Welcome <?php echo $_SESSION["name"]; ?></h3>
+    <div class="sidebar">
 
-<ul>
+        <h2>NSBM EventHub</h2>
 
-    <li><a href="events.php">Manage Events</a></li>
+        <p>Admin Panel</p>
 
-    <li><a href="categories.php">Manage Categories</a></li>
+        <br>
 
-    <li><a href="registrations.php">View Registrations</a></li>
+        <a href="dashboard.php">Dashboard</a>
 
-    <li><a href="announcements.php">Manage Announcements</a></li>
+        <a href="events.php">Manage Events</a>
 
-    <li><a href="participant_list.php">Participant List</a></li>
+        <a href="categories.php">Manage Categories</a>
 
-</ul>
+        <a href="registrations.php">View Registrations</a>
 
-<a href="../logout.php">Logout</a>
+        <a href="participant_list.php">Participant List</a>
+
+        <a href="announcements.php">Announcements</a>
+
+        <a href="../logout.php">Logout</a>
+
+    </div>
+
+
+    <div class="admin-content">
+
+        <h1>Admin Dashboard</h1>
+
+        <p>
+            Welcome <?php echo $_SESSION["name"]; ?>
+        </p>
+
+        <br>
+
+        <div class="dashboard-cards">
+
+            <div class="dashboard-card">
+
+                <h2>Manage Events</h2>
+
+                <p>
+                    Create, edit and delete university events.
+                </p>
+
+                <a href="events.php" class="btn">
+                    Manage Events
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h2>Categories</h2>
+
+                <p>
+                    Create and manage event categories.
+                </p>
+
+                <a href="categories.php" class="btn">
+                    Manage Categories
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h2>Registrations</h2>
+
+                <p>
+                    View students registered for events.
+                </p>
+
+                <a href="registrations.php" class="btn">
+                    View Registrations
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h2>Announcements</h2>
+
+                <p>
+                    Create and manage event announcements.
+                </p>
+
+                <a href="announcements.php" class="btn">
+                    Manage Announcements
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h2>Participant List</h2>
+
+                <p>
+                    View participants registered for each event.
+                </p>
+
+                <a href="participant_list.php" class="btn">
+                    Participant List
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 
