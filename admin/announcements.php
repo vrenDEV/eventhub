@@ -34,7 +34,9 @@ $result = $conn->query("SELECT * FROM announcements ORDER BY created_at DESC");
 
 <head>
 
-    <title>Manage Announcements</title>
+    <title>Announcements - NSBM EventHub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
 
     <script>
 
@@ -59,60 +61,137 @@ $result = $conn->query("SELECT * FROM announcements ORDER BY created_at DESC");
 
 <body>
 
-<h1>Manage Announcements</h1>
+<div class="admin-layout">
 
-<p><?php echo $message; ?></p>
+    <div class="sidebar">
 
-<form name="form1" method="POST" action="" onsubmit="return validateForm()">
+        <h2>NSBM EventHub</h2>
 
-    <label>Title:</label><br>
-    <input type="text" name="title">
+        <p>Admin Panel</p>
 
-    <br><br>
+        <br>
 
-    <label>Message:</label><br>
-    <textarea name="message"></textarea>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="events.php">Manage Events</a>
+        <a href="categories.php">Manage Categories</a>
+        <a href="registrations.php">View Registrations</a>
+        <a href="participant_list.php">Participant List</a>
+        <a href="announcements.php">Announcements</a>
+        <a href="../logout.php">Logout</a>
 
-    <br><br>
+    </div>
 
-    <input type="submit" value="Add Announcement">
 
-</form>
+    <div class="admin-content">
 
-<br>
+        <h1>Manage Announcements</h1>
 
-<table border="1" cellpadding="10">
+        <p>
+            Create and manage announcements for students.
+        </p>
 
-    <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Message</th>
-        <th>Date</th>
-        <th>Action</th>
-    </tr>
+        <p><?php echo $message; ?></p>
 
-    <?php while ($row = $result->fetch_assoc()) { ?>
 
-        <tr>
-            <td><?php echo $row["id"]; ?></td>
-            <td><?php echo $row["title"]; ?></td>
-            <td><?php echo $row["message"]; ?></td>
-            <td><?php echo $row["created_at"]; ?></td>
+        <div class="form-container">
 
-            <td>
-                <a href="edit_announcement.php?id=<?php echo $row["id"]; ?>">Edit</a>
-                |
-                <a href="delete_announcement.php?id=<?php echo $row["id"]; ?>">Delete</a>
-            </td>
-        </tr>
+            <form
+                name="form1"
+                method="POST"
+                action=""
+                onsubmit="return validateForm()"
+            >
 
-    <?php } ?>
+                <label>Announcement Title</label>
 
-</table>
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Enter announcement title"
+                >
 
-<br>
+                <br><br>
 
-<a href="dashboard.php">Back to Dashboard</a>
+                <label>Message</label>
+
+                <textarea
+                    name="message"
+                    placeholder="Enter announcement message"
+                ></textarea>
+
+                <br><br>
+
+                <input
+                    type="submit"
+                    value="Add Announcement"
+                >
+
+            </form>
+
+        </div>
+
+
+        <br>
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Title</th>
+                <th>Message</th>
+                <th>Date</th>
+                <th>Action</th>
+
+            </tr>
+
+            <?php while ($row = $result->fetch_assoc()) { ?>
+
+                <tr>
+
+                    <td>
+                        <?php echo $row["id"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["title"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["message"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["created_at"]; ?>
+                    </td>
+
+                    <td>
+
+                        <a
+                            class="edit-btn"
+                            href="edit_announcement.php?id=<?php echo $row["id"]; ?>"
+                        >
+                            Edit
+                        </a>
+
+                        <a
+                            class="delete-btn"
+                            href="delete_announcement.php?id=<?php echo $row["id"]; ?>"
+                        >
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            <?php } ?>
+
+        </table>
+
+    </div>
+
+</div>
 
 </body>
 

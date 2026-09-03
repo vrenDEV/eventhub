@@ -40,7 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
 
-    <title>Add Event</title>
+    <title>Add Event - NSBM EventHub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
 
     <script>
 
@@ -85,62 +87,145 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-<h1>Add New Event</h1>
+<div class="admin-layout">
 
-<p><?php echo $message; ?></p>
+    <div class="sidebar">
 
-<form name="form1" method="POST" action="" onsubmit="return validateForm()">
+        <h2>NSBM EventHub</h2>
 
-    <label>Event Title:</label><br>
-    <input type="text" name="title">
+        <p>Admin Panel</p>
 
-    <br><br>
+        <br>
 
-    <label>Description:</label><br>
-    <textarea name="description"></textarea>
+        <a href="dashboard.php">Dashboard</a>
 
-    <br><br>
+        <a href="events.php">Manage Events</a>
 
-    <label>Category:</label><br>
+        <a href="categories.php">Manage Categories</a>
 
-    <select name="category_id">
+        <a href="registrations.php">View Registrations</a>
 
-        <option value="">Select Category</option>
+        <a href="participant_list.php">Participant List</a>
 
-        <?php while ($category = $categoryResult->fetch_assoc()) { ?>
+        <a href="announcements.php">Announcements</a>
 
-            <option value="<?php echo $category["id"]; ?>">
-                <?php echo $category["category_name"]; ?>
-            </option>
+        <a href="../logout.php">Logout</a>
 
-        <?php } ?>
+    </div>
 
-    </select>
 
-    <br><br>
+    <div class="admin-content">
 
-    <label>Event Date:</label><br>
-    <input type="date" name="event_date">
+        <h1>Add New Event</h1>
 
-    <br><br>
+        <p><?php echo $message; ?></p>
 
-    <label>Event Time:</label><br>
-    <input type="time" name="event_time">
 
-    <br><br>
+        <div class="form-container">
 
-    <label>Location:</label><br>
-    <input type="text" name="location">
+            <form
+                name="form1"
+                method="POST"
+                action=""
+                onsubmit="return validateForm()"
+            >
 
-    <br><br>
+                <label>Event Title</label>
 
-    <input type="submit" value="Add Event">
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Enter event title"
+                >
 
-</form>
 
-<br>
+                <br><br>
 
-<a href="events.php">Back to Events</a>
+
+                <label>Description</label>
+
+                <textarea
+                    name="description"
+                    placeholder="Enter event description"
+                ></textarea>
+
+
+                <br><br>
+
+
+                <label>Category</label>
+
+                <select name="category_id">
+
+                    <option value="">Select Category</option>
+
+                    <?php while ($category = $categoryResult->fetch_assoc()) { ?>
+
+                        <option value="<?php echo $category["id"]; ?>">
+
+                            <?php echo $category["category_name"]; ?>
+
+                        </option>
+
+                    <?php } ?>
+
+                </select>
+
+
+                <br><br>
+
+
+                <label>Event Date</label>
+
+                <input
+                    type="date"
+                    name="event_date"
+                >
+
+
+                <br><br>
+
+
+                <label>Event Time</label>
+
+                <input
+                    type="time"
+                    name="event_time"
+                >
+
+
+                <br><br>
+
+
+                <label>Location</label>
+
+                <input
+                    type="text"
+                    name="location"
+                    placeholder="Enter event location"
+                >
+
+
+                <br><br>
+
+
+                <input
+                    type="submit"
+                    value="Add Event"
+                >
+
+            </form>
+
+        </div>
+
+
+        <a href="events.php" class="btn">
+            Back to Events
+        </a>
+
+    </div>
+
+</div>
 
 </body>
 

@@ -33,7 +33,9 @@ $result = $conn->query("SELECT * FROM categories");
 
 <head>
 
-    <title>Manage Categories</title>
+    <title>Manage Categories - NSBM EventHub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
 
     <script>
 
@@ -53,48 +55,103 @@ $result = $conn->query("SELECT * FROM categories");
 
 <body>
 
-<h1>Manage Categories</h1>
+<div class="admin-layout">
 
-<p><?php echo $message; ?></p>
+    <div class="sidebar">
 
-<form name="form1" method="POST" action="" onsubmit="return validateForm()">
+        <h2>NSBM EventHub</h2>
 
-    <label>Category Name:</label><br>
-    <input type="text" name="category_name">
+        <p>Admin Panel</p>
 
-    <br><br>
+        <br>
 
-    <input type="submit" value="Add Category">
+        <a href="dashboard.php">Dashboard</a>
+        <a href="events.php">Manage Events</a>
+        <a href="categories.php">Manage Categories</a>
+        <a href="registrations.php">View Registrations</a>
+        <a href="participant_list.php">Participant List</a>
+        <a href="announcements.php">Announcements</a>
+        <a href="../logout.php">Logout</a>
 
-</form>
+    </div>
 
-<br>
 
-<table border="1" cellpadding="10">
+    <div class="admin-content">
 
-    <tr>
-        <th>ID</th>
-        <th>Category Name</th>
-        <th>Action</th>
-    </tr>
+        <h1>Manage Categories</h1>
 
-    <?php while ($row = $result->fetch_assoc()) { ?>
+        <p><?php echo $message; ?></p>
 
-        <tr>
-            <td><?php echo $row["id"]; ?></td>
-            <td><?php echo $row["category_name"]; ?></td>
-            <td>
-                <a href="delete_category.php?id=<?php echo $row["id"]; ?>">Delete</a>
-            </td>
-        </tr>
+        <div class="form-container">
 
-    <?php } ?>
+            <form
+                name="form1"
+                method="POST"
+                action=""
+                onsubmit="return validateForm()"
+            >
 
-</table>
+                <label>Category Name</label>
 
-<br>
+                <input
+                    type="text"
+                    name="category_name"
+                    placeholder="Enter category name"
+                >
 
-<a href="dashboard.php">Back to Dashboard</a>
+                <br><br>
+
+                <input
+                    type="submit"
+                    value="Add Category"
+                >
+
+            </form>
+
+        </div>
+
+        <br>
+
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Category Name</th>
+                <th>Action</th>
+            </tr>
+
+            <?php while ($row = $result->fetch_assoc()) { ?>
+
+                <tr>
+
+                    <td>
+                        <?php echo $row["id"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["category_name"]; ?>
+                    </td>
+
+                    <td>
+
+                        <a
+                            class="delete-btn"
+                            href="delete_category.php?id=<?php echo $row["id"]; ?>"
+                        >
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            <?php } ?>
+
+        </table>
+
+    </div>
+
+</div>
 
 </body>
 

@@ -28,44 +28,103 @@ $result = $conn->query($sql);
 <html>
 
 <head>
-    <title>View Registrations</title>
+
+    <title>View Registrations - NSBM EventHub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
 </head>
 
 <body>
 
-<h1>Event Registrations</h1>
+<div class="admin-layout">
 
-<table border="1" cellpadding="10">
+    <div class="sidebar">
 
-    <tr>
-        <th>ID</th>
-        <th>Student Name</th>
-        <th>Email</th>
-        <th>Event</th>
-        <th>Registered At</th>
-        <th>Action</th>
-    </tr>
+        <h2>NSBM EventHub</h2>
 
-    <?php while ($row = $result->fetch_assoc()) { ?>
+        <p>Admin Panel</p>
 
-        <tr>
-            <td><?php echo $row["id"]; ?></td>
-            <td><?php echo $row["name"]; ?></td>
-            <td><?php echo $row["email"]; ?></td>
-            <td><?php echo $row["title"]; ?></td>
-            <td><?php echo $row["registered_at"]; ?></td>
-            <td>
-                <a href="delete_registration.php?id=<?php echo $row["id"]; ?>">Delete</a>
-            </td>
-        </tr>
+        <br>
 
-    <?php } ?>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="events.php">Manage Events</a>
+        <a href="categories.php">Manage Categories</a>
+        <a href="registrations.php">View Registrations</a>
+        <a href="participant_list.php">Participant List</a>
+        <a href="announcements.php">Announcements</a>
+        <a href="../logout.php">Logout</a>
 
-</table>
+    </div>
 
-<br>
 
-<a href="dashboard.php">Back to Dashboard</a>
+    <div class="admin-content">
+
+        <h1>Event Registrations</h1>
+
+        <p>
+            View all students who have registered for university events.
+        </p>
+
+        <br>
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>Event</th>
+                <th>Registered At</th>
+                <th>Action</th>
+
+            </tr>
+
+            <?php while ($row = $result->fetch_assoc()) { ?>
+
+                <tr>
+
+                    <td>
+                        <?php echo $row["id"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["name"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["email"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["title"]; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $row["registered_at"]; ?>
+                    </td>
+
+                    <td>
+
+                        <a
+                            class="delete-btn"
+                            href="delete_registration.php?id=<?php echo $row["id"]; ?>"
+                        >
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            <?php } ?>
+
+        </table>
+
+    </div>
+
+</div>
 
 </body>
 

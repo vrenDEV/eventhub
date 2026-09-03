@@ -37,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             WHERE id='$id'";
 
     if ($conn->query($sql) === TRUE) {
+
         $message = "Event updated successfully";
 
         $sql = "SELECT * FROM events WHERE id='$id'";
@@ -44,7 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $event = $result->fetch_assoc();
 
     } else {
+
         $message = "Event could not be updated";
+
     }
 }
 
@@ -54,68 +57,136 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
 <head>
-    <title>Edit Event</title>
+
+    <title>Edit Event - NSBM EventHub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
 </head>
 
 <body>
 
-<h1>Edit Event</h1>
+<div class="admin-layout">
 
-<p><?php echo $message; ?></p>
+    <div class="sidebar">
 
-<form method="POST" action="">
+        <h2>NSBM EventHub</h2>
 
-    <label>Event Title:</label><br>
-    <input type="text" name="title" value="<?php echo $event["title"]; ?>" required>
+        <p>Admin Panel</p>
 
-    <br><br>
+        <br>
 
-    <label>Description:</label><br>
-    <textarea name="description" required><?php echo $event["description"]; ?></textarea>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="events.php">Manage Events</a>
+        <a href="categories.php">Manage Categories</a>
+        <a href="registrations.php">View Registrations</a>
+        <a href="participant_list.php">Participant List</a>
+        <a href="announcements.php">Announcements</a>
+        <a href="../logout.php">Logout</a>
 
-    <br><br>
+    </div>
 
-    <label>Category:</label><br>
 
-    <select name="category_id" required>
+    <div class="admin-content">
 
-        <?php while ($category = $categoryResult->fetch_assoc()) { ?>
+        <h1>Edit Event</h1>
 
-            <option value="<?php echo $category["id"]; ?>"
-                <?php if ($category["id"] == $event["category_id"]) echo "selected"; ?>>
+        <p><?php echo $message; ?></p>
 
-                <?php echo $category["category_name"]; ?>
+        <div class="form-container">
 
-            </option>
+            <form method="POST" action="">
 
-        <?php } ?>
+                <label>Event Title</label>
 
-    </select>
+                <input
+                    type="text"
+                    name="title"
+                    value="<?php echo $event["title"]; ?>"
+                    required
+                >
 
-    <br><br>
+                <br><br>
 
-    <label>Event Date:</label><br>
-    <input type="date" name="event_date" value="<?php echo $event["event_date"]; ?>" required>
+                <label>Description</label>
 
-    <br><br>
+                <textarea
+                    name="description"
+                    required
+                ><?php echo $event["description"]; ?></textarea>
 
-    <label>Event Time:</label><br>
-    <input type="time" name="event_time" value="<?php echo $event["event_time"]; ?>" required>
+                <br><br>
 
-    <br><br>
+                <label>Category</label>
 
-    <label>Location:</label><br>
-    <input type="text" name="location" value="<?php echo $event["location"]; ?>" required>
+                <select name="category_id" required>
 
-    <br><br>
+                    <?php while ($category = $categoryResult->fetch_assoc()) { ?>
 
-    <input type="submit" value="Update Event">
+                        <option
+                            value="<?php echo $category["id"]; ?>"
+                            <?php if ($category["id"] == $event["category_id"]) echo "selected"; ?>
+                        >
 
-</form>
+                            <?php echo $category["category_name"]; ?>
 
-<br>
+                        </option>
 
-<a href="events.php">Back to Events</a>
+                    <?php } ?>
+
+                </select>
+
+                <br><br>
+
+                <label>Event Date</label>
+
+                <input
+                    type="date"
+                    name="event_date"
+                    value="<?php echo $event["event_date"]; ?>"
+                    required
+                >
+
+                <br><br>
+
+                <label>Event Time</label>
+
+                <input
+                    type="time"
+                    name="event_time"
+                    value="<?php echo $event["event_time"]; ?>"
+                    required
+                >
+
+                <br><br>
+
+                <label>Location</label>
+
+                <input
+                    type="text"
+                    name="location"
+                    value="<?php echo $event["location"]; ?>"
+                    required
+                >
+
+                <br><br>
+
+                <input
+                    type="submit"
+                    value="Update Event"
+                >
+
+            </form>
+
+        </div>
+
+        <a href="events.php" class="btn">
+            Back to Events
+        </a>
+
+    </div>
+
+</div>
 
 </body>
 

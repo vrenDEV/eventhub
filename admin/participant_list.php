@@ -37,64 +37,117 @@ if ($event_id != "") {
 <html>
 
 <head>
-    <title>Participant List</title>
+
+    <title>Participant List - NSBM EventHub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
 </head>
 
 <body>
 
-<h1>Participant List</h1>
+<div class="admin-layout">
 
-<form method="GET" action="">
+    <div class="sidebar">
 
-    <label>Select Event:</label>
+        <h2>NSBM EventHub</h2>
 
-    <select name="event_id">
+        <p>Admin Panel</p>
 
-        <option value="">Select Event</option>
+        <br>
 
-        <?php while ($event = $eventResult->fetch_assoc()) { ?>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="events.php">Manage Events</a>
+        <a href="categories.php">Manage Categories</a>
+        <a href="registrations.php">View Registrations</a>
+        <a href="participant_list.php">Participant List</a>
+        <a href="announcements.php">Announcements</a>
+        <a href="../logout.php">Logout</a>
 
-            <option value="<?php echo $event["id"]; ?>">
-                <?php echo $event["title"]; ?>
-            </option>
+    </div>
+
+
+    <div class="admin-content">
+
+        <h1>Participant List</h1>
+
+        <p>
+            Select an event to view the students registered for it.
+        </p>
+
+        <div class="form-container">
+
+            <form method="GET" action="">
+
+                <label>Select Event</label>
+
+                <select name="event_id">
+
+                    <option value="">Select Event</option>
+
+                    <?php while ($event = $eventResult->fetch_assoc()) { ?>
+
+                        <option value="<?php echo $event["id"]; ?>">
+
+                            <?php echo $event["title"]; ?>
+
+                        </option>
+
+                    <?php } ?>
+
+                </select>
+
+                <br><br>
+
+                <input
+                    type="submit"
+                    value="View Participants"
+                >
+
+            </form>
+
+        </div>
+
+
+        <?php if ($event_id != "") { ?>
+
+            <br>
+
+            <table>
+
+                <tr>
+                    <th>Student Name</th>
+                    <th>Email</th>
+                    <th>Event</th>
+                </tr>
+
+                <?php while ($row = $result->fetch_assoc()) { ?>
+
+                    <tr>
+
+                        <td>
+                            <?php echo $row["name"]; ?>
+                        </td>
+
+                        <td>
+                            <?php echo $row["email"]; ?>
+                        </td>
+
+                        <td>
+                            <?php echo $row["title"]; ?>
+                        </td>
+
+                    </tr>
+
+                <?php } ?>
+
+            </table>
 
         <?php } ?>
 
-    </select>
+    </div>
 
-    <input type="submit" value="View Participants">
-
-</form>
-
-<br>
-
-<?php if ($event_id != "") { ?>
-
-<table border="1" cellpadding="10">
-
-    <tr>
-        <th>Student Name</th>
-        <th>Email</th>
-        <th>Event</th>
-    </tr>
-
-    <?php while ($row = $result->fetch_assoc()) { ?>
-
-        <tr>
-            <td><?php echo $row["name"]; ?></td>
-            <td><?php echo $row["email"]; ?></td>
-            <td><?php echo $row["title"]; ?></td>
-        </tr>
-
-    <?php } ?>
-
-</table>
-
-<?php } ?>
-
-<br>
-
-<a href="dashboard.php">Back to Dashboard</a>
+</div>
 
 </body>
 
