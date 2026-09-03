@@ -47,7 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
 
-    <title>Login</title>
+    <title>Login - NSBM EventHub</title>
+
+    <link rel="stylesheet" href="css/style.css">
 
     <script>
 
@@ -70,31 +72,75 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </head>
 
-<body>
+<body class="auth-page">
 
-<h1>Login</h1>
+<div class="auth-navbar">
 
-<p><?php echo $message; ?></p>
+    <div class="logo">
+        NSBM <span>EventHub</span>
+    </div>
 
-<form name="form1" method="POST" action="" onsubmit="return validateForm()">
+</div>
 
-    <label>Email:</label><br>
-    <input type="email" name="email">
 
-    <br><br>
+<div class="auth-wrapper">
 
-    <label>Password:</label><br>
-    <input type="password" name="password">
+    <div class="auth-card">
 
-    <br><br>
+        <h1>Welcome Back!</h1>
 
-    <input type="submit" value="Login">
+        <p class="subtitle">
+            Login to your NSBM EventHub account
+        </p>
 
-</form>
+        <p><?php echo $message; ?></p>
 
-<br>
+        <form
+            name="form1"
+            method="POST"
+            action=""
+            onsubmit="return validateForm()"
+        >
 
-<a href="register.php">Create Account</a>
+            <label>Email</label>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+            >
+
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+            >
+
+
+            <input
+                type="submit"
+                value="Login"
+            >
+
+        </form>
+
+
+        <div class="auth-bottom">
+
+            Don't have an account?
+
+            <a href="register.php">
+                Register here
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 

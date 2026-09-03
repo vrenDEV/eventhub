@@ -29,7 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
 
-    <title>Register</title>
+    <title>Register - NSBM EventHub</title>
+
+    <link rel="stylesheet" href="css/style.css">
 
     <script>
 
@@ -57,36 +59,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </head>
 
-<body>
+<body class="auth-page">
 
-<h1>Student Registration</h1>
+<div class="auth-navbar">
 
-<p><?php echo $message; ?></p>
+    <div class="logo">
+        NSBM <span>EventHub</span>
+    </div>
 
-<form name="form1" method="POST" action="" onsubmit="return validateForm()">
+</div>
 
-    <label>Name:</label><br>
-    <input type="text" name="name">
+<div class="auth-wrapper">
 
-    <br><br>
+    <div class="auth-card">
 
-    <label>Email:</label><br>
-    <input type="email" name="email">
+        <h1>Create Account</h1>
 
-    <br><br>
+        <p class="subtitle">
+            Register for your NSBM EventHub account
+        </p>
 
-    <label>Password:</label><br>
-    <input type="password" name="password">
+        <p><?php echo $message; ?></p>
 
-    <br><br>
+        <form
+            name="form1"
+            method="POST"
+            action=""
+            onsubmit="return validateForm()"
+        >
 
-    <input type="submit" value="Register">
+            <label>Name</label>
 
-</form>
+            <input
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+            >
 
-<br>
+            <label>Email</label>
 
-<a href="login.php">Login</a>
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+            >
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+            >
+
+            <input
+                type="submit"
+                value="Register"
+            >
+
+        </form>
+
+        <div class="auth-bottom">
+
+            Already have an account?
+
+            <a href="login.php">
+                Login here
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 

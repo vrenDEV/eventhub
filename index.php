@@ -42,110 +42,235 @@ if ($category == "") {
 $result = $conn->query($sql);
 
 $categoryResult = $conn->query("SELECT * FROM categories");
+
 $announcementResult = $conn->query("SELECT * FROM announcements ORDER BY created_at DESC");
 
 ?>
 
 <!DOCTYPE html>
+
 <html>
 
 <head>
+
     <title>NSBM EventHub</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
 
-<h1>NSBM EventHub</h1>
+<div class="navbar">
 
-<h3>Welcome <?php echo $_SESSION["name"]; ?></h3>
+    <div class="logo">
+        NSBM <span>EventHub</span>
+    </div>
 
-<a href="my_schedule.php">My Event Schedule</a>
-<a href="logout.php">Logout</a>
+    <div class="nav-links">
 
-<hr>
+        <a href="index.php">Home</a>
 
-<h2>Search Events</h2>
+        <a href="#events">Events</a>
 
-<form method="GET" action="">
+        <a href="#announcements">Announcements</a>
 
-    <label>Category:</label>
+        <a href="my_schedule.php">My Schedule</a>
 
-    <select name="category">
+        <a href="logout.php">Logout</a>
 
-        <option value="">All Categories</option>
+    </div>
 
-        <?php while ($cat = $categoryResult->fetch_assoc()) { ?>
+</div>
 
-            <option value="<?php echo $cat["id"]; ?>">
-                <?php echo $cat["category_name"]; ?>
-            </option>
 
-        <?php } ?>
+<section class="hero">
 
-    </select>
+    <div class="hero-content">
 
-    <input type="submit" value="Search">
+        <h1>
+            Discover. Join. Experience.
+            <br>
+            <span>Campus Events.</span>
+        </h1>
 
-</form>
+        <p>
+            NSBM EventHub is your one-stop platform to discover upcoming
+            university events, connect with students and stay updated.
+        </p>
 
-<br>
+        <a href="#events" class="btn">Browse Events</a>
 
-<h2>Announcements</h2>
+    </div>
 
-<table border="1" cellpadding="10">
+</section>
 
-    <tr>
-        <th>Title</th>
-        <th>Message</th>
-        <th>Date</th>
-    </tr>
+
+<section class="features">
+
+    <div class="feature-box">
+
+        <h3>Explore Events</h3>
+
+        <p>
+            Discover exciting events happening around the university.
+        </p>
+
+    </div>
+
+
+    <div class="feature-box">
+
+        <h3>Join & Connect</h3>
+
+        <p>
+            Register for events and connect with fellow students.
+        </p>
+
+    </div>
+
+
+    <div class="feature-box">
+
+        <h3>Stay Updated</h3>
+
+        <p>
+            Get the latest announcements and event updates.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section" id="announcements">
+
+    <div class="section-title">
+
+        <h2>Latest <span class="green-text">Announcements</span></h2>
+
+    </div>
 
     <?php while ($announcement = $announcementResult->fetch_assoc()) { ?>
 
-        <tr>
-            <td><?php echo $announcement["title"]; ?></td>
-            <td><?php echo $announcement["message"]; ?></td>
-            <td><?php echo $announcement["created_at"]; ?></td>
-        </tr>
+        <div class="announcement-box">
+
+            <h3>
+                <?php echo $announcement["title"]; ?>
+            </h3>
+
+            <p>
+                <?php echo $announcement["message"]; ?>
+            </p>
+
+            <small>
+                <?php echo $announcement["created_at"]; ?>
+            </small>
+
+        </div>
 
     <?php } ?>
 
-</table>
+</section>
 
-<br>
 
-<h2>Upcoming Events</h2>
+<section class="section" id="events">
 
-<table border="1" cellpadding="10">
+    <div class="section-title">
 
-    <tr>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Description</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Location</th>
-        <th>Action</th>
-    </tr>
+        <h2>Upcoming <span class="green-text">Events</span></h2>
 
-    <?php while ($row = $result->fetch_assoc()) { ?>
+    </div>
 
-        <tr>
-            <td><?php echo $row["title"]; ?></td>
-            <td><?php echo $row["category_name"]; ?></td>
-            <td><?php echo $row["description"]; ?></td>
-            <td><?php echo $row["event_date"]; ?></td>
-            <td><?php echo $row["event_time"]; ?></td>
-            <td><?php echo $row["location"]; ?></td>
 
-            <td>
-                <a href="register_event.php?id=<?php echo $row["id"]; ?>">Register</a>
-            </td>
-        </tr>
+    <div class="search-box">
 
-    <?php } ?>
+        <form method="GET" action="">
 
-</table>
+            <label>Search by Category:</label>
+
+            <select name="category">
+
+                <option value="">All Categories</option>
+
+                <?php while ($cat = $categoryResult->fetch_assoc()) { ?>
+
+                    <option value="<?php echo $cat["id"]; ?>">
+
+                        <?php echo $cat["category_name"]; ?>
+
+                    </option>
+
+                <?php } ?>
+
+            </select>
+
+            <br><br>
+
+            <input type="submit" value="Search">
+
+        </form>
+
+    </div>
+
+
+    <div class="event-grid">
+
+        <?php while ($row = $result->fetch_assoc()) { ?>
+
+            <div class="event-card">
+
+                <div class="event-content">
+
+                    <span class="category">
+                        <?php echo $row["category_name"]; ?>
+                    </span>
+
+                    <h3>
+                        <?php echo $row["title"]; ?>
+                    </h3>
+
+                    <p>
+                        <?php echo $row["description"]; ?>
+                    </p>
+
+                    <p class="event-info">
+                        Date: <?php echo $row["event_date"]; ?>
+                    </p>
+
+                    <p class="event-info">
+                        Time: <?php echo $row["event_time"]; ?>
+                    </p>
+
+                    <p class="event-info">
+                        Location: <?php echo $row["location"]; ?>
+                    </p>
+
+                    <br>
+
+                    <a
+                        class="btn"
+                        href="register_event.php?id=<?php echo $row["id"]; ?>"
+                    >
+                        Register
+                    </a>
+
+                </div>
+
+            </div>
+
+        <?php } ?>
+
+    </div>
+
+</section>
+
+
+<div class="footer">
+
+    © 2026 NSBM EventHub
+
+</div>
 
 </body>
 
