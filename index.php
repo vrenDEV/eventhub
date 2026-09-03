@@ -95,7 +95,7 @@ $announcementResult = $conn->query("SELECT * FROM announcements ORDER BY created
         </h1>
 
         <p>
-            NSBM EventHub is your one-stop platform to discover upcoming
+            NSBM EventHub is your one stop platform to discover upcoming
             university events, connect with students and stay updated.
         </p>
 

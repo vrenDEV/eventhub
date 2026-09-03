@@ -27,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             WHERE id='$id'";
 
     if ($conn->query($sql) === TRUE) {
+
         $message = "Announcement updated successfully";
 
         $sql = "SELECT * FROM announcements WHERE id='$id'";
@@ -34,7 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $announcement = $result->fetch_assoc();
 
     } else {
+
         $message = "Announcement could not be updated";
+
     }
 }
 
@@ -44,36 +47,82 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
 <head>
-    <title>Edit Announcement</title>
+
+    <title>Edit Announcement - NSBM EventHub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
 </head>
 
 <body>
 
-<h1>Edit Announcement</h1>
+<div class="admin-layout">
 
-<p><?php echo $message; ?></p>
+    <div class="sidebar">
 
-<form method="POST" action="">
+        <h2>NSBM EventHub</h2>
 
-    <label>Title:</label><br>
-    <input type="text" name="title"
-           value="<?php echo $announcement["title"]; ?>" required>
+        <p>Admin Panel</p>
 
-    <br><br>
+        <br>
 
-    <label>Message:</label><br>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="events.php">Manage Events</a>
+        <a href="categories.php">Manage Categories</a>
+        <a href="registrations.php">View Registrations</a>
+        <a href="participant_list.php">Participant List</a>
+        <a href="announcements.php">Announcements</a>
+        <a href="../logout.php">Logout</a>
 
-    <textarea name="message" required><?php echo $announcement["message"]; ?></textarea>
+    </div>
 
-    <br><br>
 
-    <input type="submit" value="Update Announcement">
+    <div class="admin-content">
 
-</form>
+        <h1>Edit Announcement</h1>
 
-<br>
+        <p><?php echo $message; ?></p>
 
-<a href="announcements.php">Back to Announcements</a>
+        <div class="form-container">
+
+            <form method="POST" action="">
+
+                <label>Title</label>
+
+                <input
+                    type="text"
+                    name="title"
+                    value="<?php echo $announcement["title"]; ?>"
+                    required
+                >
+
+                <br><br>
+
+                <label>Message</label>
+
+                <textarea
+                    name="message"
+                    required
+                ><?php echo $announcement["message"]; ?></textarea>
+
+                <br><br>
+
+                <input
+                    type="submit"
+                    value="Update Announcement"
+                >
+
+            </form>
+
+        </div>
+
+        <a href="announcements.php" class="btn">
+            Back to Announcements
+        </a>
+
+    </div>
+
+</div>
 
 </body>
 
